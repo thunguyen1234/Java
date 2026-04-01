@@ -28,9 +28,19 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
-
+    baseURL: process.env.BASE_URL,
+    BASE_URL: process.env.BASE_URL,
+    USER_NAME: process.env.USER_NAME,
+    PASSWORD: process.env.PASSWORD,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    // 2. Action Timeout: How long to wait for a button to be clickable
+    actionTimeout: 10000,
+    // 3. UI Artifacts: Crucial for debugging!
+
+    screenshot: 'only-on-failure', // Automatically takes a picture when a test fails
+    video: 'retain-on-failure',    // Automatically records a video when a test fails
+    // 4. Headless mode (true = invisible background, false = opens actual browser)
+    headless: false,
   },
 
   /* Configure projects for major browsers */
@@ -40,15 +50,15 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
